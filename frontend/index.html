@@ -164,7 +164,7 @@
             let imageTemp = new FormData($(this.files[0]));
             $.ajax({
                 url: "../api/image",
-                type: "GET",
+                type: "POST",
                 data: imageTemp,
                 dataType: 'json',
                 processData: false,  // 告诉jQuery不要去处理发送的数据
@@ -197,7 +197,7 @@
             };
             $ajax({
                 url: '../api/purchase',
-                type: 'GET',
+                type: 'POST',
                 data: data,
                 dataType: 'json',
                 success: function (json) {
