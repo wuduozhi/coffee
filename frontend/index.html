@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>爱上咖啡厅出纳系统</title>
+</head>
+<body>
+<form action="../api/index.php/item" method="post" enctype="multipart/form-data">
+	<label>物品类型:</label>
+	<input type="text" name="NATURE ">
+	<br>
+	<label>物品名称:</label>
+	<input type="text" name="NAME">
+	<br>
+	<label>总价:</label>
+	<input type="text" name="TOTAL_PRICE">
+	<br>
+	<label>总量:</label>
+	<input type="text" name="TOTAL_NUM">
+	<br>
+	<label>简单描述：</label>
+	<textarea rows="4" ></textarea>
+	<br>
+	<label>图片</label>
+	<input type="file" name="image">
+	<input type="submit" name="提交">
+</form>
+</body>
