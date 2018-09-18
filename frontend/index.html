@@ -11,7 +11,6 @@
 
     <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
     <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
-    <link rel="stylesheet" href="./index.css">
 
 </head>
 <body>
@@ -30,7 +29,6 @@
                                 <!-- 物品类型 -->
                                 <li>
                                     <div class="item-content">
-                                        <!--<div class="item-media"><i class="icon icon-form-name"></i></div>-->
                                         <div class="item-inner">
                                             <div class="item-title label">物品类型</div>
                                             <div class="item-input">
@@ -42,7 +40,6 @@
                                 <!-- 物品名称 -->
                                 <li>
                                     <div class="item-content">
-                                        <!--<div class="item-media"><i class="icon icon-form-email"></i></div>-->
                                         <div class="item-inner">
                                             <div class="item-title label">物品名称</div>
                                             <div class="item-input">
@@ -54,7 +51,6 @@
                                 <!-- 购买时间 -->
                                 <li>
                                     <div class="item-content">
-                                        <!--<div class="item-media"><i class="icon icon-form-email"></i></div>-->
                                         <div class="item-inner">
                                             <div class="item-title label">购买时间</div>
                                             <div class="item-input">
@@ -66,7 +62,6 @@
                                 <!-- 总价 -->
                                 <li>
                                     <div class="item-content">
-                                        <!--<div class="item-media"><i class="icon icon-form-email"></i></div>-->
                                         <div class="item-inner">
                                             <div class="item-title label">总价</div>
                                             <div class="item-input">
@@ -78,7 +73,6 @@
                                 <!-- 总量 -->
                                 <li>
                                     <div class="item-content">
-                                        <!--<div class="item-media"><i class="icon icon-form-email"></i></div>-->
                                         <div class="item-inner">
                                             <div class="item-title label">总量</div>
                                             <div class="item-input">
@@ -90,7 +84,6 @@
                                 <!-- 描述 -->
                                 <li class="align-top">
                                     <div class="item-content">
-                                        <!--<div class="item-media"><i class="icon icon-form-comment"></i></div>-->
                                         <div class="item-inner">
                                             <div class="item-title label">简单描述</div>
                                             <div class="item-input">
@@ -99,9 +92,9 @@
                                         </div>
                                     </div>
                                 </li>
+                                <!-- 上传图片 -->
                                 <li>
                                     <div class="item-content">
-                                        <!--<div class="item-media"><i class="icon icon-form-email"></i></div>-->
                                         <div class="item-inner">
                                             <div class="item-title label">图片</div>
                                             <div class="item-input">
@@ -109,15 +102,22 @@
                                                     上传
                                                     <input type="file"
                                                            accept="image/jpeg, image/jpg, image/png, image/gif"
-                                                           style="display: none;"/>
+                                                           style="display: none;" id="upload"/>
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                 </li>
+                                <!-- 展示图片 -->
+                                <li style="display: none">
+                                    <div class="item-content">
+                                        <div class="item-inner" id="showImage">
+                                        </div>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
-                        <div class="content-block" id="content-block">
+                        <div class="content-block" style="margin: 0; margin-top: 1.5rem">
                             <div class="row">
                                 <div class="col-50">
                                     <a href="#" class="button button-big button-fill button-danger button-round">
@@ -145,11 +145,42 @@
 
 
 <script>
-    let now = moment().format("YYYY-MM-DD-HH-mm");
-    now = now.split('-');
-    $("#datetime-picker").datetimePicker({
-        value: [now[0], now[1], now[2], now[3], now[4]]
+    $(document).ready(function () {
+        let now = moment().format("YYYY-MM-DD-HH-mm");
+        now = now.split('-');
+        $("#datetime-picker").datetimePicker({
+            value: [now[0], now[1], now[2], now[3], now[4]]
+        });
+        $("#upload").on('change', function () {
+            let news = getObjectURL(this.files[0]);
+            let temp = "<img src=\"" + news + "\" alt=\"\" width='100rem'>";
+            $("#showImage").append(temp);
+            $("li").last().show();
+
+            let imageTemp = new FormData($(this.files[0]));
+            $.ajax({
+                url: "stash.php",
+                type: "POST",
+                data: imageTemp,
+                processData: false,  // 告诉jQuery不要去处理发送的数据
+                contentType: false   // 告诉jQuery不要去设置Content-Type请求头
+            });
+        })
     });
+
+    //建立一個可存取到file的url
+    function getObjectURL(file) {
+        let url = null;
+        // 下面函数执行的效果是一样的，只是需要针对不同的浏览器执行不同的 js 函数而已
+        if (window.createObjectURL !== undefined) { // basic
+            url = window.createObjectURL(file);
+        } else if (window.URL !== undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL !== undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+    }
 </script>
 
 </body>
