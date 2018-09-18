@@ -32,7 +32,7 @@
                                         <div class="item-inner">
                                             <div class="item-title label">物品类型</div>
                                             <div class="item-input">
-                                                <input type="text" placeholder="物品类型">
+                                                <input type="text" placeholder="物品类型" id="NATURE">
                                             </div>
                                         </div>
                                     </div>
@@ -43,7 +43,7 @@
                                         <div class="item-inner">
                                             <div class="item-title label">物品名称</div>
                                             <div class="item-input">
-                                                <input type="text" placeholder="物品名称">
+                                                <input type="text" placeholder="物品名称" id="NAME">
                                             </div>
                                         </div>
                                     </div>
@@ -54,7 +54,7 @@
                                         <div class="item-inner">
                                             <div class="item-title label">购买时间</div>
                                             <div class="item-input">
-                                                <input type="text" id='datetime-picker'>
+                                                <input type="text" id='datetime-picker' id="PURCHASE_TIME">
                                             </div>
                                         </div>
                                     </div>
@@ -65,7 +65,7 @@
                                         <div class="item-inner">
                                             <div class="item-title label">总价</div>
                                             <div class="item-input">
-                                                <input type="text" placeholder="总价">
+                                                <input type="text" placeholder="总价" id="TOTAL_PRICE">
                                             </div>
                                         </div>
                                     </div>
@@ -76,7 +76,7 @@
                                         <div class="item-inner">
                                             <div class="item-title label">总量</div>
                                             <div class="item-input">
-                                                <input type="text" placeholder="总量">
+                                                <input type="text" placeholder="总量" id="TOTAL_NUM">
                                             </div>
                                         </div>
                                     </div>
@@ -87,7 +87,7 @@
                                         <div class="item-inner">
                                             <div class="item-title label">简单描述</div>
                                             <div class="item-input">
-                                                <textarea></textarea>
+                                                <textarea id="DESCRIBE"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -120,12 +120,14 @@
                         <div class="content-block" style="margin: 0; margin-top: 1.5rem">
                             <div class="row">
                                 <div class="col-50">
-                                    <a href="#" class="button button-big button-fill button-danger button-round">
+                                    <a href="#" class="button button-big button-fill button-danger button-round"
+                                       id="cancel">
                                         取消
                                     </a>
                                 </div>
                                 <div class="col-50">
-                                    <a href="#" class="button button-big button-fill button-success button-round">
+                                    <a href="#" class="button button-big button-fill button-success button-round"
+                                       id="submiting">
                                         提交
                                     </a>
                                 </div>
@@ -146,8 +148,10 @@
 
 <script>
     $(document).ready(function () {
+        let IMAGE_IDS = [];
         let now = moment().format("YYYY-MM-DD-HH-mm");
         now = now.split('-');
+
         $("#datetime-picker").datetimePicker({
             value: [now[0], now[1], now[2], now[3], now[4]]
         });
@@ -159,12 +163,57 @@
 
             let imageTemp = new FormData($(this.files[0]));
             $.ajax({
-                url: "stash.php",
-                type: "POST",
+                url: "../api/image",
+                type: "GET",
                 data: imageTemp,
+                dataType: 'json',
                 processData: false,  // 告诉jQuery不要去处理发送的数据
-                contentType: false   // 告诉jQuery不要去设置Content-Type请求头
+                contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
+                success: function (json) {
+                    if (json.status !== "success") {
+                        $.toast("添加图片失败");
+                    } else {
+                        $.each(json.data, function (index, val) {
+                            IMAGE_IDS.append(val);
+                        })
+                    }
+                }
             });
+        });
+
+        $("#submiting").on('click', function () {
+            let date = $("#PURCHASE_TIME") + ":00.0";
+            date = date.substring(0, 19);
+            date = date.replace(/-/g, '/');
+            let time = new Date(date).getTime();
+            let data = {
+                NATURE: $("#NATURE").val(),
+                NAME: $("#NAME").val(),
+                TOTAL_PRICE: $("#TOTAL_PRICE").val(),
+                TOTAL_NUM: $("#TOTAL_NUM").val(),
+                DESCRIBE: $("#DESCRIBE").val(),
+                PURCHASE_TIME: time,
+                IMAGE_IDS: IMAGE_IDS
+            };
+            $ajax({
+                url: '../api/purchase',
+                type: 'GET',
+                data: data,
+                dataType: 'json',
+                success: function (json) {
+                    if (json.status === "success") {
+                        $.toast("上传成功");
+                        clearIt();
+                        IMAGE_IDS.splice(0, IMAGE_IDS.length);
+                    } else {
+                        $.toast(json.errMsg);
+                    }
+                }
+            });
+        });
+        $("#cancel").on('click', function () {
+            clearIt();
+            IMAGE_IDS.splice(0, IMAGE_IDS.length);
         })
     });
 
@@ -180,6 +229,20 @@
             url = window.webkitURL.createObjectURL(file);
         }
         return url;
+    }
+
+    function clearIt() {
+        let now = moment().format("YYYY-MM-DD-HH-mm");
+        now = now.split('-');
+
+        $("#datetime-picker").datetimePicker({
+            value: [now[0], now[1], now[2], now[3], now[4]]
+        });
+        $("#NATURE").value = "";
+        $("#NAME").value = "";
+        $("#TOTAL_PRICE").value = "";
+        $("#TOTAL_NUM").value = "";
+        $("#DESCRIBE").value = "";
     }
 </script>
 
