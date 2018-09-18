@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>爱上咖啡厅出纳系统</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="./index.css">
+
+</head>
+<body>
+<div class="page-group">
+    <div class="page page-current">
+        <header class="bar bar-nav">
+            <h1 class="title">爱上咖啡厅</h1>
+        </header>
+        <div class="content">
+            <div class="card">
+                <div class="card-header">出纳系统</div>
+                <div class="card-content">
+                    <div class="card-content-inner">
+                        <div class="list-block">
+                            <ul>
+                                <!-- 物品类型 -->
+                                <li>
+                                    <div class="item-content">
+                                        <!--<div class="item-media"><i class="icon icon-form-name"></i></div>-->
+                                        <div class="item-inner">
+                                            <div class="item-title label">物品类型</div>
+                                            <div class="item-input">
+                                                <input type="text" placeholder="物品类型">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-- 物品名称 -->
+                                <li>
+                                    <div class="item-content">
+                                        <!--<div class="item-media"><i class="icon icon-form-email"></i></div>-->
+                                        <div class="item-inner">
+                                            <div class="item-title label">物品名称</div>
+                                            <div class="item-input">
+                                                <input type="text" placeholder="物品名称">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-- 购买时间 -->
+                                <li>
+                                    <div class="item-content">
+                                        <!--<div class="item-media"><i class="icon icon-form-email"></i></div>-->
+                                        <div class="item-inner">
+                                            <div class="item-title label">购买时间</div>
+                                            <div class="item-input">
+                                                <input type="text" id='datetime-picker'>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-- 总价 -->
+                                <li>
+                                    <div class="item-content">
+                                        <!--<div class="item-media"><i class="icon icon-form-email"></i></div>-->
+                                        <div class="item-inner">
+                                            <div class="item-title label">总价</div>
+                                            <div class="item-input">
+                                                <input type="text" placeholder="总价">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-- 总量 -->
+                                <li>
+                                    <div class="item-content">
+                                        <!--<div class="item-media"><i class="icon icon-form-email"></i></div>-->
+                                        <div class="item-inner">
+                                            <div class="item-title label">总量</div>
+                                            <div class="item-input">
+                                                <input type="text" placeholder="总量">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-- 描述 -->
+                                <li class="align-top">
+                                    <div class="item-content">
+                                        <!--<div class="item-media"><i class="icon icon-form-comment"></i></div>-->
+                                        <div class="item-inner">
+                                            <div class="item-title label">简单描述</div>
+                                            <div class="item-input">
+                                                <textarea></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <!--<div class="item-media"><i class="icon icon-form-email"></i></div>-->
+                                        <div class="item-inner">
+                                            <div class="item-title label">图片</div>
+                                            <div class="item-input">
+                                                <label class="button button-round">
+                                                    上传
+                                                    <input type="file"
+                                                           accept="image/jpeg, image/jpg, image/png, image/gif"
+                                                           style="display: none;"/>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="content-block" id="content-block">
+                            <div class="row">
+                                <div class="col-50">
+                                    <a href="#" class="button button-big button-fill button-danger button-round">
+                                        取消
+                                    </a>
+                                </div>
+                                <div class="col-50">
+                                    <a href="#" class="button button-big button-fill button-success button-round">
+                                        提交
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<script src="https://cdn.bootcss.com/moment.js/2.22.1/moment.min.js"></script>
+
+
+<script>
+    let now = moment().format("YYYY-MM-DD-HH-mm");
+    now = now.split('-');
+    $("#datetime-picker").datetimePicker({
+        value: [now[0], now[1], now[2], now[3], now[4]]
+    });
+</script>
+
+</body>
+</html>
