@@ -1,6 +1,6 @@
 <?php
 namespace Controllers;
-
+use \PDO;
 class PurchaseController extends BaseController{
 	protected $container;
 
@@ -42,6 +42,61 @@ class PurchaseController extends BaseController{
 
 	}
 
+	public function get($request,$respond,$args){
+		$id = intval($_GET['id']);
+		$purchase = $this->getPurchase($id);
+		$res = array();
+		if(!$purchase){
+			$res['status'] = 'error';
+			$res['errMsg'] = 'id error';
+			return $respond->withJson($res,200);
+		}
+
+		$res['status'] = 'success';
+		$res['purchase'] = $purchase;
+		return $respond->withJson($res,200);
+	}
+
+	private function getPurchase($id){
+		$sql = 'SELECT
+			T_PURCHASE_BAK.*, 
+			GROUP_CONCAT(IMAGE.NAME) AS IMAGES,
+			COUNT(DISTINCT(IMAGE.NAME)) AS IMAGE_NUM
+		FROM
+			T_PURCHASE_BAK
+		LEFT JOIN IMAGE ON IMAGE.ID IN (
+			SELECT
+				IMAGE_ID
+			FROM
+				PURCHASE_IMAGE
+			WHERE
+				PURCHASE_ID = :id
+		)
+		GROUP BY
+			T_PURCHASE_BAK.PURCHASE_ID,
+			T_PURCHASE_BAK.`NAME`,
+			T_PURCHASE_BAK.NATURE,
+			T_PURCHASE_BAK.`DESCRIBE`,
+			T_PURCHASE_BAK.PURCHASE_TIME,
+			T_PURCHASE_BAK.TOTAL_NUM,
+			T_PURCHASE_BAK.TOTAL_PRICE
+		HAVING T_PURCHASE_BAK.FLOWID = :id';
+
+		$sth = $this->container['coffee']->pdo->prepare($sql);
+		$sth->bindParam(":id",$id,PDO::PARAM_INT);
+		$sth->execute();	
+		$result = $sth->fetchAll(PDO::FETCH_ASSOC);
+		if(!$result){
+			return false;
+		}
+		$result = $result[0];
+		if($result['IMAGE_NUM'] != 0){
+			$result['IMAGES'] = explode(',',$result['IMAGES']);
+		}
+
+		return $result;
+	}
+
 	private function addPurchase($data){
 		$result = $this->container['coffee']->insert('T_PURCHASE_BAK',$data);
 		if($result){
@@ -65,4 +120,6 @@ class PurchaseController extends BaseController{
            return false;
         }
 	}
+
+
 }
