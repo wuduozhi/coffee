@@ -7,6 +7,7 @@
 ### 0x01
 
 * api/image
+* method  post
 
 添加文件
 
@@ -36,6 +37,7 @@
 ### 0x02
 
 * api/purchase
+* method  post
 
 表单数据上传
 
@@ -67,3 +69,40 @@ IMAGE_IDS:[1,2,3]        图片id
 ```
 
 
+### 0x03
+
+* url api/purchase
+* method  get
+
+#### GET
+
+* id
+    - purchase id
+
+####return
+
+```
+{
+    "status": "success",
+    "purchase": {
+        "FLOWID": "2",
+        "PURCHASE_ID": "2018-09-18-11-03-58-9",
+        "NATURE": "123456",
+        "NAME": "包子",
+        "TOTAL_PRICE": "12.5",
+        "TOTAL_NUM": "123",
+        "DESCRIBE": "haha ，我买的早can",
+        "PURCHASE_TIME": "123456789",
+        "TIME": "1537283038",
+        "IMAGES": [
+            "15372801176629.png"
+        ],
+        "IMAGE_NUM": "1"
+    }
+}
+
+{
+    "status": "error",
+    "errMsg": "id error"
+}
+```
