@@ -11,6 +11,11 @@
 
     <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
     <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <style>
+    	* {
+    		touch-action: none
+    	}
+    </style>
 
 </head>
 <body>
@@ -161,7 +166,9 @@
             $("#showImage").append(temp);
             $("li").last().show();
 
-            let imageTemp = new FormData($(this.files[0]));
+            let imageTemp = new FormData();
+            let imageIt = this.files[0]
+            imageTemp.append('image[]', imageIt);
             $.ajax({
                 url: "../api/image",
                 type: "POST",
@@ -173,15 +180,15 @@
                     if (json.status !== "success") {
                         $.toast("添加图片失败");
                     } else {
-                        $.each(json.data, function (index, val) {
-                            IMAGE_IDS.append(val);
+                        $.each(json.id, function (index, val) {
+                            IMAGE_IDS.push(val);
                         })
                     }
                 }
             });
         });
 
-        $("#submiting").on('click', function () {
+        $("#submiting").on('touchstart', function () {
             let date = $("#PURCHASE_TIME") + ":00.0";
             date = date.substring(0, 19);
             date = date.replace(/-/g, '/');
@@ -195,7 +202,7 @@
                 PURCHASE_TIME: time,
                 IMAGE_IDS: IMAGE_IDS
             };
-            $ajax({
+            $.ajax({
                 url: '../api/purchase',
                 type: 'POST',
                 data: data,
@@ -211,7 +218,7 @@
                 }
             });
         });
-        $("#cancel").on('click', function () {
+        $("#cancel").on('touchstart', function () {
             clearIt();
             IMAGE_IDS.splice(0, IMAGE_IDS.length);
         })
