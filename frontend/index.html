@@ -59,7 +59,7 @@
                                         <div class="item-inner">
                                             <div class="item-title label">购买时间</div>
                                             <div class="item-input">
-                                                <input type="text" id='datetime-picker' id="PURCHASE_TIME">
+                                                <input type="text" id='datetime-picker'>
                                             </div>
                                         </div>
                                     </div>
@@ -189,7 +189,7 @@
         });
 
         $("#submiting").on('touchstart', function () {
-            let date = $("#PURCHASE_TIME") + ":00.0";
+            let date = $("#datetime-picker").val() + ":00.0";
             date = date.substring(0, 19);
             date = date.replace(/-/g, '/');
             let time = new Date(date).getTime();
@@ -202,6 +202,7 @@
                 PURCHASE_TIME: time,
                 IMAGE_IDS: IMAGE_IDS
             };
+            console.log(data);
             $.ajax({
                 url: '../api/purchase',
                 type: 'POST',
@@ -210,8 +211,7 @@
                 success: function (json) {
                     if (json.status === "success") {
                         $.toast("上传成功");
-                        clearIt();
-                        IMAGE_IDS.splice(0, IMAGE_IDS.length);
+                        $("#submiting").unbind();
                     } else {
                         $.toast(json.errMsg);
                     }
