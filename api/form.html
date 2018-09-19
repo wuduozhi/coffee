@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FORM test</title>
+</head>
+<body>
+<font size='1'><table class='xdebug-error xe-notice' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
+<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Notice: Undefined index: IMAGE_IDS in D:\Wampserver3.0.6\wamp\www\coffee\api\controllers\PurchaseController.php on line <i>30</i></th></tr>
+<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
+<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
+<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0030</td><td bgcolor='#eeeeec' align='right'>249416</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='D:\Wampserver3.0.6\wamp\www\coffee\api\index.php' bgcolor='#eeeeec'>..\index.php<b>:</b>0</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0460</td><td bgcolor='#eeeeec' align='right'>917104</td><td bgcolor='#eeeeec'>Slim\App->run(  )</td><td title='D:\Wampserver3.0.6\wamp\www\coffee\api\index.php' bgcolor='#eeeeec'>..\index.php<b>:</b>20</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0710</td><td bgcolor='#eeeeec' align='right'>1782912</td><td bgcolor='#eeeeec'>Slim\App->process(  )</td><td title='D:\Wampserver3.0.6\wamp\www\coffee\api\vendor\slim\slim\Slim\App.php' bgcolor='#eeeeec'>..\App.php<b>:</b>314</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>4</td><td bgcolor='#eeeeec' align='center'>0.0720</td><td bgcolor='#eeeeec' align='right'>1783064</td><td bgcolor='#eeeeec'>Slim\App->callMiddlewareStack(  )</td><td title='D:\Wampserver3.0.6\wamp\www\coffee\api\vendor\slim\slim\Slim\App.php' bgcolor='#eeeeec'>..\App.php<b>:</b>406</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>5</td><td bgcolor='#eeeeec' align='center'>0.0720</td><td bgcolor='#eeeeec' align='right'>1783432</td><td bgcolor='#eeeeec'>Slim\App->__invoke(  )</td><td title='D:\Wampserver3.0.6\wamp\www\coffee\api\vendor\slim\slim\Slim\MiddlewareAwareTrait.php' bgcolor='#eeeeec'>..\MiddlewareAwareTrait.php<b>:</b>117</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>6</td><td bgcolor='#eeeeec' align='center'>0.0790</td><td bgcolor='#eeeeec' align='right'>1900120</td><td bgcolor='#eeeeec'>Slim\Route->run(  )</td><td title='D:\Wampserver3.0.6\wamp\www\coffee\api\vendor\slim\slim\Slim\App.php' bgcolor='#eeeeec'>..\App.php<b>:</b>513</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>7</td><td bgcolor='#eeeeec' align='center'>0.0790</td><td bgcolor='#eeeeec' align='right'>1900472</td><td bgcolor='#eeeeec'>Slim\Route->callMiddlewareStack(  )</td><td title='D:\Wampserver3.0.6\wamp\www\coffee\api\vendor\slim\slim\Slim\Route.php' bgcolor='#eeeeec'>..\Route.php<b>:</b>313</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>8</td><td bgcolor='#eeeeec' align='center'>0.0790</td><td bgcolor='#eeeeec' align='right'>1900728</td><td bgcolor='#eeeeec'>Slim\Route->__invoke(  )</td><td title='D:\Wampserver3.0.6\wamp\www\coffee\api\vendor\slim\slim\Slim\MiddlewareAwareTrait.php' bgcolor='#eeeeec'>..\MiddlewareAwareTrait.php<b>:</b>117</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>9</td><td bgcolor='#eeeeec' align='center'>0.0850</td><td bgcolor='#eeeeec' align='right'>1970856</td><td bgcolor='#eeeeec'>Slim\Handlers\Strategies\RequestResponse->__invoke(  )</td><td title='D:\Wampserver3.0.6\wamp\www\coffee\api\vendor\slim\slim\Slim\Route.php' bgcolor='#eeeeec'>..\Route.php<b>:</b>335</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>10</td><td bgcolor='#eeeeec' align='center'>0.0860</td><td bgcolor='#eeeeec' align='right'>1970904</td><td bgcolor='#eeeeec'><a href='http://www.php.net/function.call-user-func:{D:\Wampserver3.0.6\wamp\www\coffee\api\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:41}' target='_new'>call_user_func:{D:\Wampserver3.0.6\wamp\www\coffee\api\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php:41}</a>
+(  )</td><td title='D:\Wampserver3.0.6\wamp\www\coffee\api\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php' bgcolor='#eeeeec'>..\RequestResponse.php<b>:</b>41</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>11</td><td bgcolor='#eeeeec' align='center'>0.0860</td><td bgcolor='#eeeeec' align='right'>1971104</td><td bgcolor='#eeeeec'>Controllers\PurchaseController->add(  )</td><td title='D:\Wampserver3.0.6\wamp\www\coffee\api\vendor\slim\slim\Slim\Handlers\Strategies\RequestResponse.php' bgcolor='#eeeeec'>..\RequestResponse.php<b>:</b>41</td></tr>
+</table></font>
+
+</body>
+</html>

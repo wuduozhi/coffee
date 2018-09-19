@@ -27,10 +27,10 @@ class PurchaseController extends BaseController{
 			return $respond->withJson($res,200);
 		}
 
-		if(is_array($data['IMAGE_IDS'])){
+		if( isset($data['IMAGE_IDS']) && is_array($data['IMAGE_IDS'])){
 			$ids = $data['IMAGE_IDS'];
 			$num = count($ids);
-			for($i=0;$i<$count;$i++){
+			for($i=0;$i<$num;$i++){
 				$image_id = $ids[$i];
 		        $this->purchase_image($purchase_id,$image_id);
 	        }
@@ -109,7 +109,7 @@ class PurchaseController extends BaseController{
 
 	private function purchase_image($purchase_id,$image_id){
 		$result = $this->container['coffee']->insert('PURCHASE_IMAGE', [
-          "NAME_ID" => $image_id,
+          "IMAGE_ID" => $image_id,
           "PURCHASE_ID"=> $purchase_id
          ]);
 
