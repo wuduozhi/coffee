@@ -8,10 +8,10 @@ return [
         // 微湖大db
         'coffee' => [
             'database_type' => 'mysql',
-            'database_name' => 'coffee',
-            'server' => 'wduozhi.xyz',
-            'username' => 'coffee',
-            'password' => 'coffee',
+            'database_name' => 'purtchase',
+            'server' => '120.79.197.217',
+            'username' => 'PURTCHASE',
+            'password' => 'PurtChase123',
             'port' => '3306',
             'charset' => 'utf8',
         ],
