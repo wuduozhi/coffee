@@ -4,6 +4,21 @@ use \PDO;
 class PurchaseController extends BaseController{
 	protected $container;
 
+	public function __construct(\Slim\Container $container){
+    	//依赖注入  若重写构造函数，同样需要注入
+      $this->container = $container;
+	    // $this->oracle = Common\DBCommon::getDB();
+      date_default_timezone_set('Asia/Shanghai');
+
+      if(!isset($_SESSION['user_id'])){
+      	 $res['status'] = 'error';
+      	 $res['errCode'] = "001";
+		 $res['errMsg'] = 'please login';
+		 echo json_encode($res);
+		 exit();
+      }
+    }
+
 	public function add($request,$respond,$args){
 		$data = $request->getParsedBody();
 		$res = array();
@@ -18,6 +33,7 @@ class PurchaseController extends BaseController{
 		$data['TIME'] = time();
 		
 		$purchase = $data;
+		$purchase["USER_ID"] = $_SESSION['user_id'];
 		unset($purchase['IMAGE_IDS']);
 		$purchase_id = $this->addPurchase($purchase);
 		

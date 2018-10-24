@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>爱上咖啡厅出纳系统</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <style>
+        * {
+            touch-action: none
+        }
+    </style>
+
+</head>
+<body>
+<div class="page-group">
+    <div class="page page-current">
+        <header class="bar bar-nav">
+            <h1 class="title">爱上咖啡厅</h1>
+        </header>
+        <div class="content">
+            <div class="card">
+                <div class="card-header">注册系统</div>
+                <div class="card-content">
+                    <div class="card-content-inner">
+                        <div class="list-block">
+                            <ul>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">工号</div>
+                                            <div class="item-input">
+                                                <input type="text" placeholder="工号" id="number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">学号</div>
+                                            <div class="item-input">
+                                                <input type="text" placeholder="学号" id="stuid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">姓名</div>
+                                            <div class="item-input">
+                                                <input type="text" placeholder="姓名" id="name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">密码</div>
+                                            <div class="item-input">
+                                                <input type="password" placeholder="****" id="password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">确认密码</div>
+                                            <div class="item-input">
+                                                <input type="password" placeholder="****" id="password_again">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">银行卡号</div>
+                                            <div class="item-input">
+                                                <input type="text" placeholder="银行卡号" id="bank">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">电话号码</div>
+                                            <div class="item-input">
+                                                <input type="text" placeholder="电话号码" id="phone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">学院</div>
+                                            <div class="item-input">
+                                                <input type="text" placeholder="学院" id="college">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="content-block" style="margin: 0; margin-top: 1.5rem">
+                            <div class="row">
+                                <div class="col-100">
+                                    <a href="#" class="button button-big button-fill button-danger button-round"
+                                       id="submiting">
+                                        注册
+                                    </a>
+                                </div>
+                                <!-- <div class="col-50">
+                                    <a href="#" class="button button-big button-fill button-success button-round"
+                                       id="register">
+                                        注册
+                                    </a>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+<script src="https://cdn.bootcss.com/moment.js/2.22.1/moment.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $("#submiting").on('touchstart', function () {
+            password = $("#password").val();
+            password_again = $("#password_again").val();
+            console.log(password);
+            console.log(password_again);
+            if (password !== password_again) {
+                $.toast("两次密码输入不一致");
+                return;
+            }
+            let data = {
+                number: $("#number").val(),
+                stuid: $("#stuid").val(),
+                bank: $("#bank").val(),
+                name: $("#name").val(),
+                phone: $("#phone").val(),
+                college: $("#college").val(),
+                password: $("#password").val()
+            };
+            console.log(data);
+            $.ajax({
+                url: '../api/register',
+                type: 'POST',
+                data: data,
+                dataType: 'json',
+                success: function (json) {
+                    if (json.status === "success") {
+                        $.toast("注册成功,等待管理员审核");
+                        window.location.href = "./login.html";
+                    } else {
+                        $.toast(json.errMsg);
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

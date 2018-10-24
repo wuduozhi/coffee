@@ -227,6 +227,10 @@
                         $.toast("上传成功");
                         $("#submiting").unbind();
                     } else {
+                        if(json.errCode === "001"){
+                            $.toast(json.errMsg);
+                            window.location.href = "./login.html";
+                        }
                         $.toast(json.errMsg);
                     }
                 }

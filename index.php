@@ -1,3 +1,3 @@
 <?php
 
-header('Location: http://coffee.wduozhi.xyz/frontend/index.html');
+header('Location: http://coffee.wduozhi.xyz/frontend/login.html');
